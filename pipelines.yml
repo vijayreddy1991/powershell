@@ -27,7 +27,7 @@ pipelines:
             - get-childitem $run_dir\workspace
             - get-childitem $run_dir\workspace\myRepo
 #             - get-childitem $run_dir\workspace\myDirs
-#             - get-childitem $run_dir\workspace\myFiles
+            - get-childitem $run_dir\workspace\myFiles
             #pipelines
             - get-childitem $pipeline_workspace_dir
             - add_pipeline_files -sources "$res_myRepo_resourcePath" -name myRepo
@@ -136,7 +136,7 @@ pipelines:
             - bump_semver v3.0.0 patch
             - bump_semver v3.0.0 beta  
 #             - retry_command printen
-            - replace_envs "$res_myRepo_resourcePath/keys" 
+            - replace_envs "$res_myRepo_resourcePath\keys" 
             - compare_git --resource myRepo --commit-range HEAD~3..HEAD pipelines.yml
             - update_commit_status myRepo --status failure --message "My description 123" --context "stepB" 
             - read_json $res_myRepo_resourcePath/tests/yaml/sample.json "DOCKER_USERNAME"
