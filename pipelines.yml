@@ -5,12 +5,15 @@ resources:
     configuration:
       gitProvider: vijay_git
       path: vijayreddy1991/powershell
-      
-- name: vijay_pipeline
+
+pipelines:
+
+  - name: vijay_pipeline
     steps:
       - name: add_files
         type: PowerShell
         configuration:
+          nodePool: win_2019        
           inputResources:
             - name: myRepo
               trigger: false
