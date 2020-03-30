@@ -158,7 +158,8 @@ pipelines:
             - bump_semver v3.0.0 major
             - bump_semver v3.0.0 minor
             - bump_semver v3.0.0 patch
-            - bump_semver v3.0.0 beta      
+            - bump_semver v3.0.0 beta  
+            - retry_command printen
             - compare_git --resource myRepo --commit-range HEAD~3..HEAD pipelines.yml
             - update_commit_status myRepo --status failure --message "My description 123" --context "stepB" 
             - read_json $res_myRepo_resourcePath/tests/yaml/sample.json "DOCKER_USERNAME"
