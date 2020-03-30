@@ -94,31 +94,7 @@ pipelines:
             #runs
             - restore_run_files -name myRepo -path $step_tmp_dir
             - get-childitem $step_tmp_dir
-#             - remove-item -recurse -path $step_tmp_dir\*
-#             - restore_run_files -name myDirs -path $step_tmp_dir
-#             - get-childitem $step_tmp_dir
-#             - remove-item -recurse -path $step_tmp_dir\*
-#             - restore_run_files -name myFiles -path $step_tmp_dir
-#             - get-childitem $step_tmp_dir
-#             - remove-item -recurse -path $step_tmp_dir\*
-#             - restore_run_files -name myMixed -path $step_tmp_dir
-#             - get-childitem $step_tmp_dir
-#             - remove-item -recurse -path $step_tmp_dir\*
-#             #pipelines
-#             - get-childitem $step_tmp_dir
-#             - get-childitem $pipeline_workspace_dir
-#             - restore_pipeline_files -name myRepo -path $step_tmp_dir
-#             - get-childitem $step_tmp_dir
-#             - remove-item -recurse -path $step_tmp_dir\*
-#             - restore_pipeline_files -name myDirs -path $step_tmp_dir
-#             - get-childitem $step_tmp_dir
-#             - remove-item -recurse -path $step_tmp_dir\*
-#             - restore_pipeline_files -name myFiles -path $step_tmp_dir
-#             - get-childitem $step_tmp_dir
-#             - remove-item -recurse -path $step_tmp_dir\*
-#             - restore_pipeline_files -name myMixed -path $step_tmp_dir
-#             - get-childitem $step_tmp_dir
-#             - remove-item -recurse -path $step_tmp_dir\*
+
 
       - name: restore_pipelines
         type: PowerShell
@@ -160,6 +136,7 @@ pipelines:
             - bump_semver v3.0.0 patch
             - bump_semver v3.0.0 beta  
             - retry_command printen
+            - replace_envs "$res_myRepo_resourcePath/keys" 
             - compare_git --resource myRepo --commit-range HEAD~3..HEAD pipelines.yml
             - update_commit_status myRepo --status failure --message "My description 123" --context "stepB" 
             - read_json $res_myRepo_resourcePath/tests/yaml/sample.json "DOCKER_USERNAME"
