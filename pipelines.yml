@@ -62,8 +62,8 @@ pipelines:
             - try {$count = (Get-Content sum.txt | ConvertFrom-Json).count ; write-output "count is -- $count"} catch {$_}
             - try {add_cache_files -sources sum.txt -name myCount} catch {$_}
             - add_cache_files -sources "$res_myRepo_resourcePath" -name myRepo
-            - add_cache_files -sources "$res_myRepo_resourcePath\bas*" -name myDirs
-            - add_cache_files -sources "$res_myRepo_resourcePath\file*" -name myFiles
+#             - add_cache_files -sources "$res_myRepo_resourcePath\bas*" -name myDirs
+#             - add_cache_files -sources "$res_myRepo_resourcePath\file*" -name myFiles
             - add_cache_files -sources "$res_myRepo_resourcePath\file1.txt", "$res_myRepo_resourcePath\base" -name myMixed
             - try { get-childitem $step_workspace_dir\download\cache } catch {$_}
             - try { get-childitem $step_workspace_dir\download\cache\myRepo } catch {$_}
@@ -71,6 +71,7 @@ pipelines:
 #             - try { get-childitem $step_workspace_dir\download\cache\myFiles } catch {$_}
 #             - try { get-childitem $step_workspace_dir\download\cache\myMixed } catch {$_}
             - add_run_variables "testvariable=asdffdjksfjk"
+            - add_pipeline_variables "vijay=kumar"
             - try {save_tests -sources "$res_myRepo_resourcePath\tests\sampleoutput.xml"} catch {$_}
             - New-Item -Path ".\faketests" -ItemType Directory
             - try {save_tests -sources faketests} catch {$_}
@@ -93,28 +94,28 @@ pipelines:
             #runs
             - restore_run_files -name myRepo -path $step_tmp_dir
             - get-childitem $step_tmp_dir
-            - remove-item -recurse -path $step_tmp_dir\*
-            - restore_run_files -name myDirs -path $step_tmp_dir
-            - get-childitem $step_tmp_dir
-            - remove-item -recurse -path $step_tmp_dir\*
-            - restore_run_files -name myFiles -path $step_tmp_dir
-            - get-childitem $step_tmp_dir
-            - remove-item -recurse -path $step_tmp_dir\*
-            - restore_run_files -name myMixed -path $step_tmp_dir
-            - get-childitem $step_tmp_dir
-            - remove-item -recurse -path $step_tmp_dir\*
+#             - remove-item -recurse -path $step_tmp_dir\*
+#             - restore_run_files -name myDirs -path $step_tmp_dir
+#             - get-childitem $step_tmp_dir
+#             - remove-item -recurse -path $step_tmp_dir\*
+#             - restore_run_files -name myFiles -path $step_tmp_dir
+#             - get-childitem $step_tmp_dir
+#             - remove-item -recurse -path $step_tmp_dir\*
+#             - restore_run_files -name myMixed -path $step_tmp_dir
+#             - get-childitem $step_tmp_dir
+#             - remove-item -recurse -path $step_tmp_dir\*
             #pipelines
             - get-childitem $step_tmp_dir
             - get-childitem $pipeline_workspace_dir
             - restore_pipeline_files -name myRepo -path $step_tmp_dir
             - get-childitem $step_tmp_dir
-            - remove-item -recurse -path $step_tmp_dir\*
-            - restore_pipeline_files -name myDirs -path $step_tmp_dir
-            - get-childitem $step_tmp_dir
-            - remove-item -recurse -path $step_tmp_dir\*
-            - restore_pipeline_files -name myFiles -path $step_tmp_dir
-            - get-childitem $step_tmp_dir
-            - remove-item -recurse -path $step_tmp_dir\*
-            - restore_pipeline_files -name myMixed -path $step_tmp_dir
-            - get-childitem $step_tmp_dir
-            - remove-item -recurse -path $step_tmp_dir\*
+#             - remove-item -recurse -path $step_tmp_dir\*
+#             - restore_pipeline_files -name myDirs -path $step_tmp_dir
+#             - get-childitem $step_tmp_dir
+#             - remove-item -recurse -path $step_tmp_dir\*
+#             - restore_pipeline_files -name myFiles -path $step_tmp_dir
+#             - get-childitem $step_tmp_dir
+#             - remove-item -recurse -path $step_tmp_dir\*
+#             - restore_pipeline_files -name myMixed -path $step_tmp_dir
+#             - get-childitem $step_tmp_dir
+#             - remove-item -recurse -path $step_tmp_dir\*
