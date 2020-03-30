@@ -6,7 +6,7 @@ resources:
       gitProvider: vijay_git
       path: vijayreddy1991/powershell
       
-- name: test_header_funcs
+- name: vijay_pipeline
     steps:
       - name: add_files
         type: PowerShell
