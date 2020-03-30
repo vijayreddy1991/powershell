@@ -20,6 +20,7 @@ pipelines:
         execution:
           onExecute:
             # runs
+            - get-childitem $res_myRepo_resourcePath            
             - add_run_files -sources "$res_myRepo_resourcePath" -name myRepo
 #             - add_run_files -sources "$res_myRepo_resourcePath/powershell" -name myDirs
             - add_run_files -sources "$res_myRepo_resourcePath\test.sh" -name myFiles
@@ -66,9 +67,9 @@ pipelines:
             - add_cache_files -sources "$res_myRepo_resourcePath\file1.txt", "$res_myRepo_resourcePath\base" -name myMixed
             - try { get-childitem $step_workspace_dir\download\cache } catch {$_}
             - try { get-childitem $step_workspace_dir\download\cache\myRepo } catch {$_}
-            - try { get-childitem $step_workspace_dir\download\cache\myDirs } catch {$_}
-            - try { get-childitem $step_workspace_dir\download\cache\myFiles } catch {$_}
-            - try { get-childitem $step_workspace_dir\download\cache\myMixed } catch {$_}
+#             - try { get-childitem $step_workspace_dir\download\cache\myDirs } catch {$_}
+#             - try { get-childitem $step_workspace_dir\download\cache\myFiles } catch {$_}
+#             - try { get-childitem $step_workspace_dir\download\cache\myMixed } catch {$_}
             - add_run_variables "testvariable=asdffdjksfjk"
             - try {save_tests -sources "$res_myRepo_resourcePath\tests\sampleoutput.xml"} catch {$_}
             - New-Item -Path ".\faketests" -ItemType Directory
