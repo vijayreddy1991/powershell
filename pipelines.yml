@@ -104,11 +104,11 @@ pipelines:
 #             - restore_run_files -name myMixed -path $step_tmp_dir
 #             - get-childitem $step_tmp_dir
 #             - remove-item -recurse -path $step_tmp_dir\*
-            #pipelines
-            - get-childitem $step_tmp_dir
-            - get-childitem $pipeline_workspace_dir
-            - restore_pipeline_files -name myRepo -path $step_tmp_dir
-            - get-childitem $step_tmp_dir
+#             #pipelines
+#             - get-childitem $step_tmp_dir
+#             - get-childitem $pipeline_workspace_dir
+#             - restore_pipeline_files -name myRepo -path $step_tmp_dir
+#             - get-childitem $step_tmp_dir
 #             - remove-item -recurse -path $step_tmp_dir\*
 #             - restore_pipeline_files -name myDirs -path $step_tmp_dir
 #             - get-childitem $step_tmp_dir
@@ -119,3 +119,22 @@ pipelines:
 #             - restore_pipeline_files -name myMixed -path $step_tmp_dir
 #             - get-childitem $step_tmp_dir
 #             - remove-item -recurse -path $step_tmp_dir\*
+
+      - name: restore_pipelines
+        type: PowerShell
+        configuration:
+          nodePool: win_2019         
+          inputResources:
+            - name: myRepo
+              trigger: false
+          inputSteps:
+            - name: restore_files
+        execution:
+          onExecute:
+            - $testvariable
+            - $vijay
+            #pipelines
+            - get-childitem $step_tmp_dir
+            - get-childitem $pipeline_workspace_dir
+            - restore_pipeline_files -name myRepo -path $step_tmp_dir
+            - get-childitem $step_tmp_dir
