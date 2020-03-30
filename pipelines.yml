@@ -135,7 +135,7 @@ pipelines:
             - bump_semver v3.0.0 minor
             - bump_semver v3.0.0 patch
             - bump_semver v3.0.0 beta  
-            - retry_command printen
+#             - retry_command printen
             - replace_envs "$res_myRepo_resourcePath/keys" 
             - compare_git --resource myRepo --commit-range HEAD~3..HEAD pipelines.yml
             - update_commit_status myRepo --status failure --message "My description 123" --context "stepB" 
