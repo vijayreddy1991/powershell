@@ -130,6 +130,7 @@ pipelines:
             - $testvariable
             - $vijay
             #pipelines
+            - get-childitem $res_myRepo_resourcePath
             - get-childitem $step_tmp_dir
             - bump_semver v3.0.0 major
             - bump_semver v3.0.0 minor
