@@ -35,8 +35,8 @@ pipelines:
             - get-childitem $res_myRepo_resourcePath
             # runs
             - add_run_files -sources "$res_myRepo_resourcePath" -name myRepo
-#             - add_run_files -sources "$res_myRepo_resourcePath\powershell" -name myDirs
-            - add_run_files -sources "$res_myRepo_resourcePath\test*" -name myFiles
+            - add_run_files -sources "$res_myRepo_resourcePath/powershell" -name myDirs
+            - add_run_files -sources "$res_myRepo_resourcePath/test*" -name myFiles
             - get-childitem $run_dir\workspace
             - get-childitem $run_dir\workspace\myRepo
             - get-childitem $run_dir\workspace\myDirs
