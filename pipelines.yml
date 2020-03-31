@@ -140,8 +140,14 @@ pipelines:
             - bump_semver v3.0.0 beta  
 #             - retry_command printen
 #             - replace_envs "$res_myRepo_resourcePath\keys" 
-#             - compare_git --resource myRepo --commit-range HEAD~3..HEAD pipelines.yml
-            - update_commit_status myRepo --status failure --message "My description 123" --context "stepB" 
+            - $env:tempPath = $env:Path
+            - $env:Path = $env:Path + ';' + ((Get-Command git).Path -replace 'cmd\\git\.exe$','usr\bin')
+            - echo $env:Path            
+            - compare_git -Path "$res_myRepo_resourcePath" -commit-range master..HEAD~4 
+            - compare_git -Path "$res_myRepo_resourcePath" -commit-range master..HEAD~4 | Foreach ($file) { Write-Output "pipelines.yml"} 
+            - compare_git -Path "$res_myRepo_resourcePath" -commit-range master..HEAD~4 -depth 2
+            - compare_git myRepo -commit-range master..HEAD~4 -directories-only
+            - compare_git myRepo -commit-range master..HEAD~4 -directories-only -depth 2
             - read_json $res_myRepo_resourcePath/tests/yaml/sample.json "DOCKER_USERNAME"
          
             
