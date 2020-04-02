@@ -148,6 +148,7 @@ pipelines:
             - compare_git -Path "$res_myRepo_resourcePath" -commit-range master..HEAD~4 -depth 2
             - compare_git myRepo -commit-range master..HEAD~4 -directories-only
             - compare_git myRepo -commit-range master..HEAD~4 -directories-only -depth 2
-            - read_json $res_myRepo_resourcePath\sample.json "DOCKER_USERNAME"
+            - Set-Content -Path "test.json" -Value "{'username':'Test','attachments':[{'pretext':'This is','text':'to test','color':'#5183a0'}],'icon_url':'${opt_icon_url}'}"
+            - read_json $res_myRepo_resourcePath\test.json "username"
          
             
