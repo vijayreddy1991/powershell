@@ -149,6 +149,7 @@ pipelines:
             - compare_git myRepo -commit-range master..HEAD~4 -directories-only
             - compare_git myRepo -commit-range master..HEAD~4 -directories-only -depth 2
             - Set-Content -Path "test.json" -Value "{'username':'Test','attachments':[{'pretext':'This is','text':'to test','color':'#5183a0'}],'icon_url':'${opt_icon_url}'}"
-            - read_json -Path "$res_myRepo_resourcePath\test.json" "username"
+#             - read_json -Path "$res_myRepo_resourcePath\test.json" "username"
+            - update_commit_status myRepo -context "Windows" -message "testing step $step_id" -status failure
          
             
