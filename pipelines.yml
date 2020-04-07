@@ -151,5 +151,13 @@ pipelines:
             - Set-Content -Path "test.json" -Value "{'username':'Test','attachments':[{'pretext':'This is','text':'to test','color':'#5183a0'}],'icon_url':'${opt_icon_url}'}"
 #             - read_json -Path "$res_myRepo_resourcePath\test.json" "username"
             - update_commit_status myRepo -context "Windows" -message "testing step $step_id" -status failure
+            - add_run_variables "testvariable=asdffdjksfjk.    "
+            - add_pipeline_variables "vijay=kumar.      "
+            - export_pipeline_variables "jfrog=pipelines.        "
+            - export_run_variables "jfrog1=pipelines1.        1 "       
+            - $testvariable
+            - $vijay
+            - $jfrog
+            - $jfrog1
          
             
