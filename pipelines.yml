@@ -143,7 +143,7 @@ pipelines:
             - $env:tempPath = $env:Path
             - $env:Path = $env:Path + ';' + ((Get-Command git).Path -replace 'cmd\\git\.exe$','usr\bin')
             - echo $env:Path  
-            - execute_command [--retry] Get-Host
+            - execute_command Get-Host
             - compare_git -Path "$res_myRepo_resourcePath" -commit-range master..HEAD~4 
             - compare_git -Path "$res_myRepo_resourcePath" -commit-range master..HEAD~4 | Foreach ($file) { Write-Output "pipelines.yml"} 
             - compare_git -Path "$res_myRepo_resourcePath" -commit-range master..HEAD~4 -depth 2
