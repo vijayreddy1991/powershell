@@ -142,7 +142,8 @@ pipelines:
 #             - replace_envs "$res_myRepo_resourcePath\keys" 
             - $env:tempPath = $env:Path
             - $env:Path = $env:Path + ';' + ((Get-Command git).Path -replace 'cmd\\git\.exe$','usr\bin')
-            - echo $env:Path            
+            - echo $env:Path  
+            - execute_command [--retry] Get-Host
             - compare_git -Path "$res_myRepo_resourcePath" -commit-range master..HEAD~4 
             - compare_git -Path "$res_myRepo_resourcePath" -commit-range master..HEAD~4 | Foreach ($file) { Write-Output "pipelines.yml"} 
             - compare_git -Path "$res_myRepo_resourcePath" -commit-range master..HEAD~4 -depth 2
@@ -150,10 +151,10 @@ pipelines:
             - compare_git myRepo -commit-range master..HEAD~4 -directories-only -depth 2
             - Set-Content -Path "test.json" -Value "{'username':'Test','attachments':[{'pretext':'This is','text':'to test','color':'#5183a0'}],'icon_url':'${opt_icon_url}'}"
 #             - read_json -Path "$res_myRepo_resourcePath\test.json" "username"
-            - update_commit_status myRepo -context "Windows" -message "testing step $step_id" -status failure
-#             - add_run_variables testvariable="asdffdjksfjk.    1"
-#             - add_pipeline_variables vijay="kumar.      1"     
-#             - $testvariable
-#             - $vijay
+#             - update_commit_status myRepo -context "Windows" -message "testing step $step_id" -status failure
+            - add_run_variables testvariable="asdffdjksfjk.    1"
+            - add_pipeline_variables vijay="kumar.      1"     
+            - $testvariable
+            - $vijay
 
             
