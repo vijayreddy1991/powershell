@@ -154,7 +154,9 @@ pipelines:
 #             - read_json -Path "$res_myRepo_resourcePath\test.json" "username"
 #             - update_commit_status myRepo -context "Windows" -message "testing step $step_id" -status failure
             - add_run_variables testvariable="asdffdjksfjk.    1"
-            - add_pipeline_variables vijay="kumar.      1"     
+            - add_run_variables "scm=gitRepo" 'runVariable1="A string with spaces."' runVariable2='A string with $.'
+            - add_pipeline_variables vijay="kumar.      1"   
+            - add_pipeline_variables "scm=gitRepo" 'runVariable1="A string with spaces."' runVariable2='A string with $.'
             - $testvariable
             - $vijay
 
