@@ -122,6 +122,21 @@ pipelines:
             - echo $pipelineVariable                       
             - restore_pipeline_files -name repo_pipe -path $step_tmp_dir
             - get-childitem $step_tmp_dir   
+            - echo $runVariable       
+            
+      - name: functions3
+        type: PowerShell
+        configuration:
+          nodePool: test-2384             
+          inputSteps:
+            - name: functions2
+        execution:
+          onExecute:
+            - get-childitem $res_myRepo_resourcePath    
+            - echo $pipelineVariable                       
+            - restore_pipeline_files -name repo_pipe -path $step_tmp_dir
+            - get-childitem $step_tmp_dir   
             - echo $runVariable            
+            
 
             
