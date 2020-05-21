@@ -70,10 +70,12 @@ pipelines:
             - pip --version
             - pip install pytest
             - pytest --version
-            - Push-Location $res_repo_pipe_resourcePath
-            - py.test --verbose --junit-xml test-reports/results.xml 
+            - Push-Location $res_myRepo_resourcePath
+            - get-childitem $res_myRepo_resourcePath
+            #- pytest tests/test_sample.py
+            - py.test --verbose --junit-xml test-reports/results.xml test_sample.py       
             - Get-Content -Path test-reports/results.xml
-            - save_tests test-reports/results.xml       
+            - save_tests test-reports/results.xml      
             - add_run_variables "scm=gitRepo" 'runVariable1="A string with spaces."' runVariable2='A string with $.'
             - add_run_variables "scm=gitRepo"
             - export_run_variables "windows=poweshell"
