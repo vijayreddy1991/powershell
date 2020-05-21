@@ -5,126 +5,26 @@ resources:
     configuration:
       gitProvider: vijay_git
       path: vijayreddy1991/powershell
+      
+  - name: winAuto_image
+    type: Image
+    configuration:
+      registry: vijay_docker
+      imageName: shippabledocker/jfreq_win
+      imageTag: latest
 
 pipelines:
 
   - name: vijay_pipeline
-    steps:
-#       - name: add_files
-#         type: PowerShell
-#         configuration:
-#           nodePool: win_2019        
-#           inputResources:
-#             - name: myRepo
-#               trigger: false
-#         execution:
-#           onExecute:
-#             # runs
-#             - get-childitem $res_myRepo_resourcePath            
-#             - add_run_files -sources "$res_myRepo_resourcePath" -name myRepo
-# #             - add_run_files -sources "$res_myRepo_resourcePath/powershell" -name myDirs
-#             - add_run_files -sources "$res_myRepo_resourcePath\test" -name myFiles
-#             - get-childitem $run_dir\workspace
-#             - get-childitem $run_dir\workspace\myRepo
-# #             - get-childitem $run_dir\workspace\myDirs
-#             - get-childitem $run_dir\workspace\myFiles
-#             #pipelines
-#             - get-childitem $pipeline_workspace_dir
-#             - add_pipeline_files -sources "$res_myRepo_resourcePath" -name myRepo
-# #             - add_pipeline_files -sources "$res_myRepo_resourcePath\powershell*" -name myDirs
-# #             - add_pipeline_files -sources "$res_myRepo_resourcePath\pipeline*" -name myFiles
-# #            - add_pipeline_files -sources "$res_myRepo_resourcePath\file1.txt", "$res_myRepo_resourcePath\base" -name myMixed
-#             - get-childitem $pipeline_workspace_dir
-#             - get-childitem $pipeline_workspace_dir\myRepo
-# #             - get-childitem $pipeline_workspace_dir\myDirs
-# #             - get-childitem $pipeline_workspace_dir\myFiles
-# #             - get-childitem $pipeline_workspace_dir\myMixed
-#             #cache
-#             - try { get-childitem $step_workspace_dir\download\cache } catch {$_}
-#             - try {restore_cache_files -name myCount -path "."} catch {$_}
-#             - ls
-#             - try {cat myCount} catch {$_}
-#             - try {restore_cache_files -name myRepo -path "$step_tmp_dir"} catch {$_}
-#             - ls $step_tmp_dir
-#             - remove-item -recurse -path $step_tmp_dir\*
-#             - try {restore_cache_files -name myDirs -path "$step_tmp_dir"} catch {$_}
-#             - ls $step_tmp_dir
-#             - remove-item -recurse -path $step_tmp_dir\*
-#             - try {restore_cache_files -name myFiles -path "$step_tmp_dir"} catch {$_}
-#             - ls $step_tmp_dir
-#             - remove-item -recurse -path $step_tmp_dir\*
-#             - try {restore_cache_files -name myMixed -path "$step_tmp_dir"} catch {$_}
-#             - ls $step_tmp_dir
-#             - remove-item -recurse -path $step_tmp_dir\*
-
-#             - if (!(test-path "sum.txt")) {Set-Content -Path "sum.txt" -Value "{`"count`":1}"}
-#             - if (test-path "sum.txt") {$contents = get-content sum.txt | ConvertFrom-Json ; $contents.count +=1; $contents | convertTo-Json | set-content -Path "sum.txt" }
-#             - try {$count = (Get-Content sum.txt | ConvertFrom-Json).count ; write-output "count is -- $count"} catch {$_}
-#             - try {add_cache_files -sources sum.txt -name myCount} catch {$_}
-#             - add_cache_files -sources "$res_myRepo_resourcePath" -name myRepo
-# #             - add_cache_files -sources "$res_myRepo_resourcePath\bas*" -name myDirs
-# #             - add_cache_files -sources "$res_myRepo_resourcePath\file*" -name myFiles
-# #             - add_cache_files -sources "$res_myRepo_resourcePath\file1.txt", "$res_myRepo_resourcePath\base" -name myMixed
-#             - try { get-childitem $step_workspace_dir\download\cache } catch {$_}
-#             - try { get-childitem $step_workspace_dir\download\cache\myRepo } catch {$_}
-# #             - try { get-childitem $step_workspace_dir\download\cache\myDirs } catch {$_}
-# #             - try { get-childitem $step_workspace_dir\download\cache\myFiles } catch {$_}
-# #             - try { get-childitem $step_workspace_dir\download\cache\myMixed } catch {$_}
-#             - add_run_variables "testvariable=asdffdjksfjk"
-#             - add_pipeline_variables "vijay=kumar"
-#             - export_pipeline_variables "jfrog=pipelines"
-#             - export_run_variables "jfrog1=pipelines1"
-#             - try {save_tests -sources "$res_myRepo_resourcePath\tests\sampleoutput.xml"} catch {$_}
-#             - New-Item -Path ".\faketests" -ItemType Directory
-#             - try {save_tests -sources faketests} catch {$_}
-
-
-
-#       - name: restore_files
-#         type: PowerShell
-#         configuration:
-#           nodePool: win_2019         
-#           inputResources:
-#             - name: myRepo
-#               trigger: false
-#           inputSteps:
-#             - name: add_files
-#         execution:
-#           onExecute:
-#             - $testvariable
-#             - get-childitem $run_dir\workspace
-#             #runs
-#             - restore_run_files -name myRepo -path $step_tmp_dir
-#             - get-childitem $step_tmp_dir
-
-
-#       - name: restore_pipelines
-#         type: PowerShell
-#         configuration:
-#           nodePool: win_2019         
-#           inputResources:
-#             - name: myRepo
-#               trigger: false
-#           inputSteps:
-#             - name: restore_files
-#         execution:
-#           onExecute:
-#             - $testvariable
-#             - $vijay
-#             #pipelines
-#             - get-childitem $step_tmp_dir
-#             - get-childitem $pipeline_workspace_dir
-#             - restore_pipeline_files -name myRepo -path $step_tmp_dir
-#             - get-childitem $step_tmp_dir
-            
-            
+    steps:  
       - name: functions
         type: PowerShell
         configuration:
-          nodePool: win_2019         
+          nodePool: win_2019 
+          integrations:
+            - name: slack            
           inputResources:
             - name: myRepo
-              trigger: false
 #           inputSteps:
 #             - name: restore_pipelines
         execution:
@@ -153,11 +53,89 @@ pipelines:
             - Set-Content -Path "test.json" -Value "{'username':'Test','attachments':[{'pretext':'This is','text':'to test','color':'#5183a0'}],'icon_url':'${opt_icon_url}'}"
 #             - read_json -Path "$res_myRepo_resourcePath\test.json" "username"
 #             - update_commit_status myRepo -context "Windows" -message "testing step $step_id" -status failure
+            - update_commit_status myRepo -context "Windows" -message "testing step $step_id" -status failure      
             - add_run_variables testvariable="asdffdjksfjk.    1"
             - add_run_variables "scm=gitRepo" 'runVariable1="A string with spaces."' runVariable2='A string with $.'
             - add_pipeline_variables vijay="kumar.      1"   
             - add_pipeline_variables "scm=gitRepo" 'runVariable1="A string with spaces."' runVariable2='A string with $.'
+            - send_notification slack
             - $testvariable
             - $vijay
+            - Get-Variable | format-table
+            - $payloadFile = "test.json"
+            - New-Item -Path "test.json"  -Force -ItemType File
+            - '[IO.File]::WriteAllLines(("test.json" | Resolve-Path), "{`"hello`":`"World`"}")'
+            - set_payload -name myOutgoingHook -payload test.json -file 
+            - write_output winAuto_image "imageTag=$run_id"    
+            - choco install python2
+            - python --version
+            - python -m pip install --upgrade pip
+            - pip --version
+            - pip install pytest
+            - pytest --version
+            - Push-Location $res_repo_pipe_resourcePath
+            - py.test --verbose --junit-xml test-reports/results.xml 
+            - Get-Content -Path test-reports/results.xml
+            - save_tests test-reports/results.xml       
+            - add_run_variables "scm=gitRepo" 'runVariable1="A string with spaces."' runVariable2='A string with $.'
+            - add_run_variables "scm=gitRepo"
+            - export_run_variables "windows=poweshell"
+            - add_pipeline_variables "scm=s_gitHub"
+            - export_pipeline_variables "jfrog=pipelines"    
+            - add_run_files -sources "$res_myRepo_resourcePath" -name repo_pipe   
+            - add_pipeline_variables "scm=s_gitHub"
+            - export_pipeline_variables "jfrog=pipelines"  
+            - add_pipeline_variables "providername=GitHub" 'pipelineVariable1="A string with spaces."' pipelineVariable2='A string with $.'
+            - add_pipeline_files -sources "$res_myRepo_resourcePath" -name repo_pipe    
+            - add_pipeline_variables pipelineVariable="asdffdjksfj.       k455457457"
+            - export_pipeline_variables
+            - add_run_variables runVariable="asdffdjksfj.       k455457457"
+            - export_run_variables   
+            - try { get-childitem $step_workspace_dir\download\cache } catch {$_}
+            - try {restore_cache_files -name myCount -path "."} catch {$_}
+            - ls
+            - try {cat myCount} catch {$_}
+            - try {restore_cache_files -name repo_pipe -path "$step_tmp_dir"} catch {$_}
+            - ls $step_tmp_dir
+            - remove-item -recurse -path $step_tmp_dir\*
+            - try {restore_cache_files -name myDirs -path "$step_tmp_dir"} catch {$_}
+            - ls $step_tmp_dir
+            - remove-item -recurse -path $step_tmp_dir\*
+            - try {restore_cache_files -name myFiles -path "$step_tmp_dir"} catch {$_}
+            - ls $step_tmp_dir
+            - remove-item -recurse -path $step_tmp_dir\*
+            - try {restore_cache_files -name myMixed -path "$step_tmp_dir"} catch {$_}
+            - ls $step_tmp_dir
+            - remove-item -recurse -path $step_tmp_dir\*
+
+            - if (!(test-path "sum.txt")) {Set-Content -Path "sum.txt" -Value "{`"count`":1}"}
+            - if (test-path "sum.txt") {$contents = get-content sum.txt | ConvertFrom-Json ; $contents.count +=1; $contents | convertTo-Json | set-content -Path "sum.txt" }
+            - try {$count = (Get-Content sum.txt | ConvertFrom-Json).count ; write-output "count is -- $count"} catch {$_}
+            - try {add_cache_files -sources sum.txt -name myCount} catch {$_}
+            - add_cache_files -sources "$res_repo_pipe_resourcePath" -name repo_pipe            
+            
+      - name: functions2
+        type: PowerShell
+        configuration:
+          nodePool: win_2019 
+          integrations:
+            - name: slack            
+          inputResources:
+            - name: myRepo
+          inputSteps:
+            - name: functions1
+        execution:
+          onExecute:
+            - get-childitem $res_myRepo_resourcePath    
+            - restore_run_files -name repo_pipe -path $step_tmp_dir   
+            - get-childitem $res_myRepo_resourcePath    
+            - echo $pipelineVariable            
+            - get-childitem $run_dir\workspace
+            - restore_run_files -name repo_pipe -path $step_tmp_dir
+            - get-childitem $step_tmp_dir  
+            - get-childitem $pipeline_workspace_dir            
+            - restore_pipeline_files -name repo_pipe -path $step_tmp_dir
+            - get-childitem $step_tmp_dir   
+            - echo $runVariable            
 
             
