@@ -102,7 +102,6 @@ pipelines:
             - remove-item -recurse -path $step_tmp_dir\*
             - try {restore_cache_files -name myFiles -path "$step_tmp_dir"} catch {$_}
             - ls $step_tmp_dir
-            - remove-item -recurse -path $step_tmp_dir\*
             - try {restore_cache_files -name myMixed -path "$step_tmp_dir"} catch {$_}
             - ls $step_tmp_dir
             - if (!(test-path "sum.txt")) {Set-Content -Path "sum.txt" -Value "{`"count`":1}"}
