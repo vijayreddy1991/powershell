@@ -31,7 +31,7 @@ pipelines:
         execution:
           onExecute:
             - find_resource_variable myRepo $res_myRepo_resourcePath
-            - replicate_resource myTestImage myStageImage
+#             - replicate_resource myTestImage myStageImage
             - $testvariable
             - $vijay
             #pipelines
