@@ -20,7 +20,7 @@ pipelines:
       - name: functions
         type: PowerShell
         configuration:
-          nodePool: test-2384 
+          nodePool: aws_windows
           integrations:
             - name: slack            
           inputResources:
@@ -113,7 +113,7 @@ pipelines:
       - name: functions2
         type: PowerShell
         configuration:
-          nodePool: test-2384             
+          nodePool: aws_windows             
           inputSteps:
             - name: functions
         execution:
@@ -127,7 +127,7 @@ pipelines:
       - name: functions3
         type: PowerShell
         configuration:
-          nodePool: test-2384             
+          nodePool: aws_windows             
           inputSteps:
             - name: functions2
         execution:
