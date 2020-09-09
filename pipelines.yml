@@ -3,7 +3,7 @@ resources:
   - name: myRepo
     type: GitRepo
     configuration:
-      gitProvider: vijay_git
+      gitProvider: vijay
       path: vijayreddy1991/powershell
       
 #   - name: winAuto_image
