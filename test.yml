@@ -42,3 +42,4 @@ pipelines:
             - get-childitem $res_myRepo_resourcePath                        
             - restore_pipeline_files -name vijay -path "C:\Users\Administrator\Downloads\hello.txt"
             - get-childitem $res_myRepo_resourcePath 
+            - get-content C:\Users\Administrator\Downloads\hello.txt
