@@ -30,7 +30,8 @@ pipelines:
           onExecute:
             - get-childitem $res_myRepo_resourcePath    
             - restore_run_files -name repo_pipe -path "C:\Users\Administrator\Documents\hello.txt"   
-            - get-childitem $res_myRepo_resourcePath     
+            - get-childitem $res_myRepo_resourcePath  
+            - get-content C:\Users\Administrator\Documents\hello.txt
       - name: functions3
         type: PowerShell 
         configuration:
