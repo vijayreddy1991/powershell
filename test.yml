@@ -54,7 +54,7 @@ pipelines:
             - $testvariable
             - $vijay
             - Get-Variable | format-table
-            - write_output winAuto_image_vijay "imageTag=$run_id"    
+#             - write_output winAuto_image_vijay "imageTag=$run_id"    
             - choco install python3
             - python --version
             - python -m pip install --upgrade pip
