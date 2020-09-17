@@ -45,7 +45,7 @@ pipelines:
             - Set-Content -Path "test.json" -Value "{'username':'Test','attachments':[{'pretext':'This is','text':'to test','color':'#5183a0'}],'icon_url':'${opt_icon_url}'}"
 #             - read_json -Path "$res_vijayRepo_resourcePath\test.json" "username"
 #             - update_commit_status myRepo -context "Windows" -message "testing step $step_id" -status failure
-            - update_commit_status myRepo -context "Windows" -message "testing step $step_id" -status failure      
+            - update_commit_status vijayRepo -context "Windows" -message "testing step $step_id" -status failure      
             - add_run_variables testvariable="asdffdjksfjk.    1"
             - add_run_variables "scm=gitRepo" 'runVariable1="A string with spaces."' runVariable2='A string with $.'
             - add_pipeline_variables vijay="kumar.      1"   
