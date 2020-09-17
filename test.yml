@@ -7,7 +7,7 @@ resources:
 pipelines:
   - name: vijay_pipeline
     configuration:
-      nodePool: aws_windows
+      nodePool: win_2019
     steps:  
       - name: functions
         type: PowerShell 
