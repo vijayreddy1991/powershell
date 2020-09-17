@@ -4,6 +4,14 @@ resources:
     configuration:
       gitProvider: vijay
       path: vijayreddy1991/powershell
+      
+  - name: winAuto_image
+    type: Image
+    configuration:
+      registry: vijay_docker
+      imageName: shippabledocker/jfreq_win
+      imageTag: latest      
+      
 pipelines:
   - name: vijay_pipeline
     configuration:
