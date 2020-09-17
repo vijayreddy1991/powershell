@@ -21,7 +21,7 @@ pipelines:
         type: PowerShell 
         configuration:
           inputResources:
-            - name: myRepo
+            - name: vijayRepo
         execution:
           onExecute:
             - Push-Location $res_vijayRepo_resourcePath
