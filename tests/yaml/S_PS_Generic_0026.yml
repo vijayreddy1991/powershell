@@ -1,0 +1,19 @@
+pipelines:
+  - name: pipeline_S_PS_Generic_0026
+    steps:
+      - name: S_PS_Generic_0026
+        type: PowerShell
+        configuration:
+          nodePool: win_2019
+          environmentVariables:
+            key: values
+            test: key
+        execution:
+          onExecute:
+            - write-output "Hi"
+            - if($key -eq $values){
+              Write-Error "Stop" -ErrorAction Stop
+              }
+            - if($test -eq $key){
+              Write-Error "Stop" -ErrorAction Stop
+              } 

@@ -1,0 +1,20 @@
+pipelines:
+  - name: pipeline_S_PS_Language_0012
+    steps:
+      - name: S_PS_Language_0012
+        type: PowerShell
+        configuration:
+          nodePool: win_2019
+          runtime:
+            type: image
+            image:
+              auto:
+                language: dotnetcore
+                versions:
+                  - 2.1
+        execution:
+          onExecute:
+            - dotnet --version
+            - if($(dotnet --version) -ne "2.1.807"){
+              Write-Error "Stop" -ErrorAction Stop
+              }

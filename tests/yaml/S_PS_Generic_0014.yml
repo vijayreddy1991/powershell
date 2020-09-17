@@ -1,0 +1,22 @@
+pipelines:
+  - name: pipeline_automation
+    steps:
+      - name: api_pipeline
+        type: PowerShell
+        configuration:
+          nodePool: win_2019
+          affinityGroup: PowerShellGroup
+        execution:
+          onExecute:
+            - write-output "hi"
+
+      - name: api_pipelineauto
+        type: PowerShell
+        configuration:
+          nodePool: automation_node_custom
+          affinityGroup: PowerShellGroup
+          inputSteps:
+            - name: api_pipeline
+        execution:
+          onExecute:
+            - write-output "hello"

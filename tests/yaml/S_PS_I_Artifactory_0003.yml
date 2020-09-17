@@ -1,0 +1,30 @@
+pipelines:
+  - name: pipelines_S_PS_I_Artifactory_0003
+    steps:
+      - name: S_PS_I_Artifactory_0003
+        type: PowerShell
+        configuration:
+          nodePool: win_2019
+          integrations:
+            - name: s_artifactory
+        execution:
+          onExecute:
+            - write-output "executing step..."
+            - if($int_s_artifactory_url -eq $null){
+              Write-Error "Stop" -ErrorAction Stop
+              }
+            - if($int_s_artifactory_masterName -eq $null){
+              Write-Error "Stop" -ErrorAction Stop
+              }
+            - if($int_s_artifactory_apikey -eq $null){
+              Write-Error "Stop" -ErrorAction Stop
+              }
+            - if($int_s_artifactory_id -eq $null){
+              Write-Error "Stop" -ErrorAction Stop
+              }
+            - if($int_s_artifactory_name -eq $null){
+              Write-Error "Stop" -ErrorAction Stop
+              }
+            - if($int_s_artifactory_user -eq $null){
+              Write-Error "Stop" -ErrorAction Stop
+              }

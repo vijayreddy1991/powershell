@@ -1,0 +1,31 @@
+resources:
+
+  - name: S_PS_R_ART_0006_Aql
+    type: Aql
+    configuration:
+      sourceArtifactory: s_artifactory
+      query: items.find({"@build.name":{"$eq":"artifactory"}})
+      addedProperties:
+        key1: value1
+        key2: value2
+      mappings:
+        - name: mapping1
+          input: IN
+          output: test1
+        - name: mapping2
+          input: IN
+          output: test2
+
+pipelines:
+  - name: pipelines_S_PS_R_ART_0006_Aql
+    steps:
+      - name: S_PS_R_ART_0006_Aql
+        type: PowerShell
+        configuration:
+          nodePool: win_2019
+          outputResources:
+            - name: S_PS_R_ART_0006_Aql
+        execution:
+          onExecute:
+            - write-output "executing step..."
+            - write_output S_PS_R_ART_0006_Aql "query=$run_id"

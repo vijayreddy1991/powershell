@@ -1,0 +1,10 @@
+pipelines:
+  - name: pipeline_S_PS_Generic_0009
+    steps:
+      - name: S_PS_Generic_0009
+        type: PowerShell
+        execution:
+          onExecute:
+            - write-output "executing step..."
+            - |
+              [ $step_node_pool_name == "automation_win_node_default"  ]

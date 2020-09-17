@@ -1,0 +1,14 @@
+pipelines:
+  - name: pipelineStepConnection_automation
+    steps:
+      - name: api_PipelineStepConnection
+        type: Bash
+        configuration:
+          integrations:
+            - name: s_gitHub
+        execution:
+          onExecute:
+            - echo "hi"
+          onComplete:
+            - echo "state=pipeline2" > pipeline_state.txt
+            - add_pipeline_files pipeline_state.txt pipeline_state_file 

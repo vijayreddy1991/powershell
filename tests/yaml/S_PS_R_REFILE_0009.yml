@@ -1,0 +1,25 @@
+
+resources:
+  - name: S_PS_R_REFILE_0009_RemoteFile
+    type: RemoteFile
+    configuration:
+      source: s_artifactory
+      # fileLocation: example-repo-local/setup/help
+      fileName: invalid # optional
+
+
+pipelines:
+  - name: pipelines_auto
+    steps:
+      - name: S_PS_R_REFILE_0009
+        type: PowerShell
+        configuration:
+          nodePool: win_2019
+          integrations:
+            - name: s_artifactory
+          outputResources:
+            - name: S_PS_R_REFILE_0009_RemoteFile
+        execution:
+          onExecute:
+            - write-output "executing step..."
+            - jfrog rt dl example-repo-local/setup/test.sh

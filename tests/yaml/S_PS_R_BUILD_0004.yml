@@ -1,0 +1,36 @@
+
+resources:
+  - name: S_PS_R_BUILD_0004_BuildInfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: s_artifactory
+      buildName: mvn_sample_build_auto
+      buildNumber: 1
+
+
+pipelines:
+  - name: pipelines_S_PS_R_BUILD_0004
+    steps:
+      - name: S_PS_R_BUILD_0004
+        type: PowerShell
+        configuration:
+          nodePool: win_2019
+          inputResources:
+            - name: S_PS_R_BUILD_0004_BuildInfo
+        execution:
+          onExecute:
+            - write-output "executing step..."
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_integrationAlias -eq $null){ Write-Error "Stop" -ErrorAction Stop} 
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_isTrigger -eq $null){ Write-Error "Stop" -ErrorAction Stop}
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_buildName -eq $null){ Write-Error "Stop" -ErrorAction Stop}
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_sourceArtifactory_user -eq $null){ Write-Error "Stop" -ErrorAction Stop} 
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_operation -eq $null){ Write-Error "Stop" -ErrorAction Stop} 
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_sourceArtifactory_name -eq $null){ Write-Error "Stop" -ErrorAction Stop} 
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_sourceArtifactory_apikey -eq $null){ Write-Error "Stop" -ErrorAction Stop} 
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_sourceArtifactory_id -eq $null){ Write-Error "Stop" -ErrorAction Stop} 
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_integrationName -eq $null){ Write-Error "Stop" -ErrorAction Stop}
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_buildNumber -eq $null){ Write-Error "Stop" -ErrorAction Stop}
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_resourceId -eq $null){ Write-Error "Stop" -ErrorAction Stop} 
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_sourceArtifactory_masterName -eq $null){ Write-Error "Stop" -ErrorAction Stop}
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_resourcePath -eq $null){ Write-Error "Stop" -ErrorAction Stop} 
+            - if($res_S_PS_R_BUILD_0004_BuildInfo_sourceArtifactory_url -eq $null){ Write-Error "Stop" -ErrorAction Stop}

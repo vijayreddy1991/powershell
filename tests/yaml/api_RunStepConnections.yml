@@ -1,0 +1,77 @@
+resources:
+ - name: r_gitHub
+   type: GitRepo
+   configuration:
+     gitProvider: s_gitHub
+     path: jfbetapipeorg/Org_test_Automation
+
+pipelines:
+
+  - name: pipelines_RunStepConnections
+
+    steps:
+      - name: s_Bash
+        type: Bash
+        configuration:
+          runtime:
+            type: host
+          inputResources:
+            - name: r_gitHub
+          environmentVariables:
+            env1: value1
+            env2: value
+        execution:
+          onExecute:
+            - echo runStepConnections > cachefile.txt
+            - add_cache_files cachefile.txt my_file
+
+      - name: s_Bash1
+        type: Bash
+        configuration:
+          inputResources:
+            - name: r_gitHub
+          runtime:
+            type: host
+          environmentVariables:
+            env1: value1
+            env2: value
+          inputSteps:
+            - name: s_Bash
+        execution:
+          onExecute:
+            - echo runStepConnections > cachefile.txt
+            - add_cache_files cachefile.txt my_file
+            
+  - name: pipelines_RunStepConnectionsProjectAdmin
+
+    steps:
+      - name: s_Bash_ProjectAdmin
+        type: Bash
+        configuration:
+          runtime:
+            type: host
+          inputResources:
+            - name: r_gitHub
+          environmentVariables:
+            env1: value1
+            env2: value
+        execution:
+          onExecute:
+            - echo "hello"    
+            
+      - name: s_Bash_ProjectAdmin1
+        type: Bash
+        configuration:
+          inputResources:
+            - name: r_gitHub
+          runtime:
+            type: host
+          environmentVariables:
+            env1: value1
+            env2: value
+          inputSteps:
+            - name: s_Bash_ProjectAdmin
+        execution:
+          onExecute:
+            - echo runStepConnections > cachefile.txt
+            - add_cache_files cachefile.txt my_file            

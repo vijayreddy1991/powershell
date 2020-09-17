@@ -1,0 +1,17 @@
+pipelines:
+  - name: pipeline_S_PS_Generic_0042
+    steps:
+      - name: S_PS_Generic_0042
+        type: PowerShell
+        configuration:
+          nodePool: win_2019
+          runtime:
+            type: image
+            image:
+              custom:
+                name: drydock/u16nodalls
+                tag: master
+                registry: i_dockerRegistry
+        execution:
+          onExecute:
+            - write-output "hi"

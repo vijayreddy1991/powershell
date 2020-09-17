@@ -1,0 +1,24 @@
+resources:
+  - name: S_PS_R_IMAGE_0021_Image
+    type: Image
+    configuration:
+      registry: s_artifactory
+      sourceRepository: docker-local
+      imageName: ubuntu
+      imageTag: latest
+
+
+
+pipelines:
+  - name: pipelines_S_PS_R_IMAGE_0021
+    steps:
+      - name: S_PS_R_IMAGE_0021
+        type: PowerShell
+        configuration:
+          nodePool: win_2019
+          inputResources:
+            - name: S_PS_R_IMAGE_0021_Image
+              trigger: true
+        execution:
+          onExecute:
+            - write-output "executing step..."

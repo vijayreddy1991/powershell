@@ -1,0 +1,47 @@
+resources:
+  - name: S_PS_UTIL
+    type: GitRepo
+    configuration:
+      gitProvider: s_gitHub
+      path: jfbetapipeorg/Org_test_Automation
+
+pipelines:
+  - name: pipeline_S_PS_UTIL_0051
+    steps:
+      - name: S_PS_UTIL_0051
+        type: PowerShell
+        configuration:
+          nodePool: win_2019
+          # outputResources:
+          #   - name: outgoing
+          inputResources:
+            - name: S_PS_UTIL
+
+        execution:
+          onExecute:
+            - get-childitem $run_dir\workspace
+            - get-childitem $res_S_PS_UTIL_resourcePath
+
+            # runs
+            - add_run_files -sources "$res_S_PS_UTIL_resourcePath" -name S_PS_UTIL
+
+
+      - name: S_PS_UTIL_0051_2
+        type: PowerShell
+        configuration:
+          nodePool: win_2019
+          # outputResources:
+          #   - name: outgoing
+          inputResources:
+            - name: S_PS_UTIL
+          inputSteps:
+            - name:  S_PS_UTIL_0051
+
+        execution:
+          onExecute:
+            - $testvariable
+            - get-childitem $res_S_PS_UTIL_resourcePath
+            - get-childitem $run_dir\workspace
+            #runs
+            - restore_run_files -name S_PS_UTIL -path $step_tmp_dir
+            - get-childitem $step_tmp_dir

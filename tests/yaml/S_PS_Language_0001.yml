@@ -1,0 +1,19 @@
+pipelines:
+  - name: pipeline_S_PS_Language_0001
+    steps:
+      - name: S_PS_Language_0001
+        type: PowerShell
+        configuration:
+          nodePool: win_2019
+          runtime:
+            type: image
+            image:
+              auto:
+                language: java
+                versions:
+                  - 8
+        execution:
+          onExecute:
+            - java -version
+            - if($(java -version) -Like "openjdk version 1.8.0_252 OpenJDK Runtime Environment build 1.8.0_252-b09 OpenJDK 64-Bit Server VM (build 25.252-b09, mixed mode")
+              { Write-Error "Stop" -ErrorAction Stop}

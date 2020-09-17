@@ -1,0 +1,25 @@
+pipelines:
+  - name: pipelines_S_PS_Generic_0015
+    steps:
+      - name: S_PS_Generic_0015
+        type: PowerShell
+        configuration:
+          nodePool: test_win_invaild
+          affinityGroup: bldGroup
+          integrations:
+            - name: s_bitbucketServer
+        execution:
+          onExecute:
+            - write-output "hi"
+      - name: S_PS_Generic_0015_1
+        type: PowerShell
+        configuration:
+          nodePool: test_win_invaild
+          affinityGroup: bldGroup
+          integrations:
+            - name: s_bitbucketServer
+          inputSteps: # optional
+            - name: S_PS_Generic_0015
+        execution:
+          onExecute:
+            - write-output "hi"
