@@ -40,8 +40,8 @@ pipelines:
             - compare_git -Path "$res_vijayRepo_resourcePath" -commit-range master..HEAD~4 
             - compare_git -Path "$res_vijayRepo_resourcePath" -commit-range master..HEAD~4 | Foreach ($file) { Write-Output "pipelines.yml"} 
             - compare_git -Path "$res_vijayRepo_resourcePath" -commit-range master..HEAD~4 -depth 2
-            - compare_git myRepo -commit-range master..HEAD~4 -directories-only
-            - compare_git myRepo -commit-range master..HEAD~4 -directories-only -depth 2
+            - compare_git vijayRepo -commit-range master..HEAD~4 -directories-only
+            - compare_git vijayRepo -commit-range master..HEAD~4 -directories-only -depth 2
             - Set-Content -Path "test.json" -Value "{'username':'Test','attachments':[{'pretext':'This is','text':'to test','color':'#5183a0'}],'icon_url':'${opt_icon_url}'}"
 #             - read_json -Path "$res_vijayRepo_resourcePath\test.json" "username"
 #             - update_commit_status myRepo -context "Windows" -message "testing step $step_id" -status failure
@@ -74,7 +74,7 @@ pipelines:
             - export_pipeline_variables "jfrog=pipelines"  
             
             - get-childitem $res_vijayRepo_resourcePath
-            - find_resource_variable myRepo $res_vijayRepo_resourcePath
+            - find_resource_variable vijayRepo $res_vijayRepo_resourcePath
             - New-Item -Path 'C:\Users\Administrator\Downloads\hello.txt' -ItemType File 
             - Set-Content -Path "C:\Users\Administrator\Downloads\hello.txt" -Value "My Value" -Force 
             - add_run_files -sources "C:\Users\Administrator\Downloads\hello.txt" -name repo_pipe   
