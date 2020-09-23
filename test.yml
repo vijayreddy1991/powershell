@@ -1,26 +1,86 @@
 resources:
-  - name: myRepo
+  - name: vijayRepo
     type: GitRepo
     configuration:
       gitProvider: vijay
       path: vijayreddy1991/powershell
+      
+  - name: winAuto_image_vijay
+    type: Image
+    configuration:
+      registry: vijay_docker
+      imageName: shippabledocker/jfreq_win
+      imageTag: latest      
+      
 pipelines:
   - name: vijay_pipeline
+    configuration:
+      nodePool: win_2019
     steps:  
       - name: functions
         type: PowerShell 
         configuration:
           inputResources:
-            - name: myRepo
+            - name: vijayRepo
         execution:
           onExecute:
-            - Push-Location $res_myRepo_resourcePath
-            - get-childitem $res_myRepo_resourcePath
-            - find_resource_variable myRepo $res_myRepo_resourcePath
+            - Push-Location $res_vijayRepo_resourcePath
+            - get-childitem $res_vijayRepo_resourcePath
+            - get-childitem $step_tmp_dir
+            - bump_semver v3.0.0 major
+            - bump_semver v3.0.0 minor
+            - bump_semver v3.0.0 patch
+            - bump_semver v3.0.0 beta  
+#             - retry_command printen
+#             - replace_envs "$res_vijayRepo_resourcePath\keys" 
+            - $env:tempPath = $env:Path
+            - $env:Path = $env:Path + ';' + ((Get-Command git).Path -replace 'cmd\\git\.exe$','usr\bin')
+            - echo $env:Path  
+            - execute_command Get-Host
+            - compare_git -Path "$res_vijayRepo_resourcePath" -commit-range master..HEAD~4 
+            - compare_git -Path "$res_vijayRepo_resourcePath" -commit-range master..HEAD~4 | Foreach ($file) { Write-Output "pipelines.yml"} 
+            - compare_git -Path "$res_vijayRepo_resourcePath" -commit-range master..HEAD~4 -depth 2
+            - compare_git vijayRepo -commit-range master..HEAD~4 -directories-only
+            - compare_git vijayRepo -commit-range master..HEAD~4 -directories-only -depth 2
+            - Set-Content -Path "test.json" -Value "{'username':'Test','attachments':[{'pretext':'This is','text':'to test','color':'#5183a0'}],'icon_url':'${opt_icon_url}'}"
+#             - read_json -Path "$res_vijayRepo_resourcePath\test.json" "username"
+#             - update_commit_status myRepo -context "Windows" -message "testing step $step_id" -status failure
+            - update_commit_status vijayRepo -context "Windows" -message "testing step $step_id" -status failure      
+            - add_run_variables testvariable="asdffdjksfjk.    1"
+            - add_run_variables "scm=gitRepo" 'runVariable1="A string with spaces."' runVariable2='A string with $.'
+            - add_pipeline_variables vijay="kumar.      1"   
+            - add_pipeline_variables "scm=gitRepo" 'runVariable1="A string with spaces."' runVariable2='A string with $.'
+#             - send_notification slack
+            - $testvariable
+            - $vijay
+            - Get-Variable | format-table
+#             - write_output winAuto_image_vijay "imageTag=$run_id"    
+            - choco install python3
+            - python --version
+            - python -m pip install --upgrade pip
+            - pip --version
+            - pip install pytest
+            - pytest --version
+            - Push-Location $res_vijayRepo_resourcePath
+            - get-childitem $res_vijayRepo_resourcePath
+            #- pytest tests/test_sample.py
+            - py.test --verbose --junit-xml test-reports/results.xml test_sample.py       
+            - Get-Content -Path test-reports/results.xml
+            - save_tests test-reports/results.xml      
+            - add_run_variables "scm=gitRepo" 'runVariable1="A string with spaces."' runVariable2='A string with $.'
+            - add_run_variables "scm=gitRepo"
+            - export_run_variables "windows=poweshell"
+            - add_pipeline_variables "scm=s_gitHub"
+            - export_pipeline_variables "jfrog=pipelines"  
+            
+            - get-childitem $res_vijayRepo_resourcePath
+            - find_resource_variable vijayRepo $res_vijayRepo_resourcePath
             - New-Item -Path 'C:\Users\Administrator\Downloads\hello.txt' -ItemType File 
             - Set-Content -Path "C:\Users\Administrator\Downloads\hello.txt" -Value "My Value" -Force 
             - add_run_files -sources "C:\Users\Administrator\Downloads\hello.txt" -name repo_pipe   
-            - add_pipeline_files -sources "C:\Users\Administrator\Downloads\hello.txt" -name vijay                
+            - add_pipeline_files -sources "C:\Users\Administrator\Downloads\hello.txt" -name vijay        
+            
+            
       - name: functions2
         type: PowerShell 
         configuration:
@@ -28,10 +88,13 @@ pipelines:
             - name: functions
         execution:
           onExecute:
-            - get-childitem $res_myRepo_resourcePath    
+            - get-childitem $res_vijayRepo_resourcePath    
             - restore_run_files -name repo_pipe -path "C:\Users\Administrator\Downloads\hello.txt"   
-            - get-childitem $res_myRepo_resourcePath  
+            - get-childitem $res_vijayRepo_resourcePath  
             - get-content C:\Users\Administrator\Downloads\hello.txt
+            - echo $pipelineVariable                        
+            - echo $runVariable              
+            
       - name: functions3
         type: PowerShell 
         configuration:
@@ -39,7 +102,9 @@ pipelines:
             - name: functions2
         execution:
           onExecute:
-            - get-childitem $res_myRepo_resourcePath                        
+            - get-childitem $res_vijayRepo_resourcePath                        
             - restore_pipeline_files -name vijay -path "C:\Users\Administrator\Downloads\hello.txt"
-            - get-childitem $res_myRepo_resourcePath 
+            - get-childitem $res_vijayRepo_resourcePath 
             - get-content C:\Users\Administrator\Downloads\hello.txt
+            - echo $pipelineVariable                        
+            - echo $runVariable   
