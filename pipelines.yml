@@ -22,8 +22,8 @@ pipelines:
 
         execution:
           onExecute:
-            - find_resource_variable myRepo $res_vijayRepo_resourcePath
-            - send_notification slack
+#             - find_resource_variable myRepo $res_vijayRepo_resourcePath
+            - send_notification SLACK
 #             - replicate_resource myTestImage myStageImage
 #             - $testvariable
 #             - $vijay
