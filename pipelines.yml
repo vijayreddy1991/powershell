@@ -1,6 +1,6 @@
 resources:
       
-  - name: myRepo
+  - name: vijayRepo
     type: GitRepo
     configuration:
       gitProvider: vijay
@@ -22,7 +22,7 @@ pipelines:
 
         execution:
           onExecute:
-            - find_resource_variable myRepo $res_myRepo_resourcePath
+            - find_resource_variable myRepo $res_vijayRepo_resourcePath
             - send_notification slack
 #             - replicate_resource myTestImage myStageImage
 #             - $testvariable
