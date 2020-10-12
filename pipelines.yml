@@ -15,7 +15,7 @@ pipelines:
           nodePool: win_2019     
           integrations:
             - name: vijay
-            - name: SLACK          
+            - name: PSSU_SLACK          
           inputResources:
             - name: vijayRepo
 
