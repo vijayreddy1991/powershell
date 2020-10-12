@@ -6,16 +6,16 @@ resources:
       gitProvider: vijay
       path: vijayreddy1991/powershell
       
-
-
 pipelines:
-
   - name: vijay_pipeline
     steps:  
       - name: functions
         type: PowerShell
         configuration:
-          
+          nodePool: win_2019        
+          integrations:
+            - name: s_gitHub
+            - name: SLACK          
           inputResources:
             - name: myRepo
 
@@ -23,42 +23,43 @@ pipelines:
         execution:
           onExecute:
             - find_resource_variable myRepo $res_myRepo_resourcePath
+            - send_notification slack
 #             - replicate_resource myTestImage myStageImage
-            - $testvariable
-            - $vijay
-            #pipelines
-            - get-childitem $res_myRepo_resourcePath
-            - Push-Location $res_myRepo_resourcePath
-            - get-childitem $step_tmp_dir  
-            - add_run_files -sources "$res_myRepo_resourcePath" -name repo_pipe   
-            - add_pipeline_files -sources "$res_myRepo_resourcePath" -name vijay    
+#             - $testvariable
+#             - $vijay
+#             #pipelines
+#             - get-childitem $res_myRepo_resourcePath
+#             - Push-Location $res_myRepo_resourcePath
+#             - get-childitem $step_tmp_dir  
+#             - add_run_files -sources "$res_myRepo_resourcePath" -name repo_pipe   
+#             - add_pipeline_files -sources "$res_myRepo_resourcePath" -name vijay    
                       
-      - name: functions2
-        type: PowerShell
-        configuration:
+#       - name: functions2
+#         type: PowerShell
+#         configuration:
             
-          inputSteps:
-            - name: functions
-        execution:
-          onExecute:
-            - get-childitem $res_myRepo_resourcePath    
-            - restore_run_files -name repo_pipe -path $step_tmp_dir   
-            - get-childitem $res_myRepo_resourcePath    
-            - echo $pipelineVariable                        
-            - echo $runVariable       
+#           inputSteps:
+#             - name: functions
+#         execution:
+#           onExecute:
+#             - get-childitem $res_myRepo_resourcePath    
+#             - restore_run_files -name repo_pipe -path $step_tmp_dir   
+#             - get-childitem $res_myRepo_resourcePath    
+#             - echo $pipelineVariable                        
+#             - echo $runVariable       
             
-      - name: functions3
-        type: PowerShell
-        configuration:         
-          inputSteps:
-            - name: functions2
-        execution:
-          onExecute:
-            - get-childitem $res_myRepo_resourcePath    
-            - echo $pipelineVariable                       
-            - restore_pipeline_files -name vijay -path $step_tmp_dir
-            - get-childitem $step_tmp_dir   
-            - echo $runVariable            
+#       - name: functions3
+#         type: PowerShell
+#         configuration:         
+#           inputSteps:
+#             - name: functions2
+#         execution:
+#           onExecute:
+#             - get-childitem $res_myRepo_resourcePath    
+#             - echo $pipelineVariable                       
+#             - restore_pipeline_files -name vijay -path $step_tmp_dir
+#             - get-childitem $step_tmp_dir   
+#             - echo $runVariable            
             
 
             
