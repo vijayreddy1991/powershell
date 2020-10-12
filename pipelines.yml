@@ -23,7 +23,7 @@ pipelines:
         execution:
           onExecute:
 #             - find_resource_variable myRepo $res_vijayRepo_resourcePath
-            - send_notification slack
+            - send_notification PSSU_SLACK
 #             - replicate_resource myTestImage myStageImage
 #             - $testvariable
 #             - $vijay
