@@ -17,7 +17,7 @@ pipelines:
             - name: vijay
             - name: SLACK          
           inputResources:
-            - name: myRepo
+            - name: vijayRepo
 
 
         execution:
