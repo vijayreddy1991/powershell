@@ -12,9 +12,9 @@ pipelines:
       - name: functions
         type: PowerShell
         configuration:
-          nodePool: windows-static       
+          nodePool: win_2019     
           integrations:
-            - name: s_gitHub
+            - name: vijay
             - name: SLACK          
           inputResources:
             - name: myRepo
