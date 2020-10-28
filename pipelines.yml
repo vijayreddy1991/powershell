@@ -15,15 +15,15 @@ pipelines:
           nodePool: win_2019     
           integrations:
             - name: vijay
-            - name: PSSU_SLACK          
+#             - name: PSSU_SLACK          
           inputResources:
             - name: vijayRepo
 
 
         execution:
           onExecute:
-#             - find_resource_variable myRepo $res_vijayRepo_resourcePath
-            - send_notification PSSU_SLACK
+            - find_resource_variable myRepo $res_vijayRepo_resourcePath
+#             - send_notification PSSU_SLACK
 #             - replicate_resource myTestImage myStageImage
 #             - $testvariable
 #             - $vijay
