@@ -1,0 +1,10 @@
+pipelines:
+  - name: vijay_pipeline
+    steps:  
+      - name: functions
+        type: PowerShell
+        configuration:
+          nodePool: windows          
+        execution:
+          onExecute:
+            - echo "test"         
