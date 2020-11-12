@@ -42,6 +42,7 @@ pipelines:
             - name: functions
         execution:
           onExecute:
+            - Push-Location $res_vijayRepo_resourcePath
             - get-childitem $res_vijayRepo_resourcePath    
             - restore_run_files -name vijayRepo -path $step_tmp_dir   
             - get-childitem $res_vijayRepo_resourcePath    
@@ -56,6 +57,7 @@ pipelines:
             - name: functions2
         execution:
           onExecute:
+            - Push-Location $res_vijayRepo_resourcePath
             - get-childitem $res_vijayRepo_resourcePath    
             - echo $pipelineVariable                       
             - restore_pipeline_files -name vijay -path $step_tmp_dir
