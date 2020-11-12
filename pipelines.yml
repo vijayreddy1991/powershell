@@ -31,7 +31,7 @@ pipelines:
             - get-childitem $res_vijayRepo_resourcePath
             - Push-Location $res_vijayRepo_resourcePath
             - get-childitem $step_tmp_dir  
-            - add_run_files -sources "$res_myRepo_resourcePath" -name vijayRepo   
+            - add_run_files -sources "$res_vijayRepo_resourcePath" -name vijayRepo   
             - add_pipeline_files -sources "$res_vijayRepo_resourcePath" -name vijay    
                       
       - name: functions2
