@@ -4,7 +4,7 @@ pipelines:
       - name: functions
         type: PowerShell
         configuration:
-          nodePool: windows          
+          nodePool: win_2019        
         execution:
           onExecute:
             - echo "test"         
