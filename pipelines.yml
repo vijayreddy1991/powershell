@@ -33,6 +33,8 @@ pipelines:
 #             - get-childitem $step_tmp_dir  
 #             - add_run_files -sources "$res_vijayRepo_resourcePath" -name vijayRepo   
 #             - add_pipeline_files -sources "$res_vijayRepo_resourcePath" -name vijay  
+            - New-Item -Path 'C:\Users\Administrator\Downloads\hello.txt' -ItemType File 
+            - Set-Content -Path "C:\Users\Administrator\Downloads\hello.txt" -Value "My Value" -Force 
             - add_run_files -sources "C:\Users\Administrator\Downloads\hello.txt" -name repo_pipe   
             - add_pipeline_files -sources "C:\Users\Administrator\Downloads\hello.txt" -name vijay             
                       
