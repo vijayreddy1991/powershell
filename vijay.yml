@@ -2,9 +2,10 @@ pipelines:
   - name: vijay_pipeline
     steps:  
       - name: functions
-        type: PowerShell
+#         type: PowerShell
+        type: Bash        
         configuration:
-          nodePool: win_2019        
+          nodePool: centos8_test        
         execution:
           onExecute:
             - echo "test"         
