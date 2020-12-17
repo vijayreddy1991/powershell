@@ -2,10 +2,10 @@ pipelines:
   - name: vijay_pipeline
     steps:  
       - name: functions
-        type: Bash #PowerShell
+        type: PowerShell
 #         type: Bash        
         configuration:
-          nodePool: u16dynamic       
+          nodePool: win_2019    
         execution:
           onExecute:
             - echo "test"         
