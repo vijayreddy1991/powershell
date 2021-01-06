@@ -5,7 +5,9 @@ pipelines:
         type: PowerShell
 #         type: Bash        
         configuration:
-          nodePool: win_2019    
+          nodePool: win_2019   
+          runtime:
+            type: host
         execution:
           onExecute:
             - echo "test"         
