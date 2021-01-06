@@ -1,5 +1,5 @@
 pipelines:
-  - name: vijay_pipeline
+  - name: vijay_pipeline12
     steps:  
       - name: functions
         type: PowerShell
