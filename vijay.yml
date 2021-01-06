@@ -5,7 +5,7 @@ pipelines:
         type: PowerShell
 #         type: Bash        
         configuration:
-          nodePool: Azure_win_2019    
+          nodePool: win_2019    
         execution:
           onExecute:
             - echo "test"         
