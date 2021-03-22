@@ -2,10 +2,10 @@ pipelines:
   - name: vijay_pipeline12
     steps:  
       - name: functions
-        type: Bash
+        type: PowerShell
 #         type: Bash        
         configuration:
-          nodePool: k8s_u18dynamic #win_2019   
+          nodePool: win_2019   
 #           runtime:
 #             type: host
         execution:
