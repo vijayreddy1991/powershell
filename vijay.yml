@@ -10,4 +10,5 @@ pipelines:
 #             type: host
         execution:
           onExecute:
-            - echo "test"         
+            - echo "test"    
+            - node --version
