@@ -1,0 +1,64 @@
+resources:
+      
+  - name: vijayRepo
+    type: GitRepo
+    configuration:
+      gitProvider: vijay
+      path: vijayreddy1991/powershell
+      
+pipelines:
+  - name: vijay_pipeline
+    steps:  
+      - name: functions
+        type: PowerShell
+        configuration:
+          nodePool: pipelines_w19     
+          integrations:
+            - name: vijay        
+          inputResources:
+            - name: vijayRepo
+
+
+        execution:
+          onExecute:
+            - get-childitem $res_vijayRepo_resourcePath
+            - Push-Location $res_vijayRepo_resourcePath
+#             - get-childitem $step_tmp_dir  
+#             - add_run_files -sources "$res_vijayRepo_resourcePath" -name vijayRepo   
+#             - add_pipeline_files -sources "$res_vijayRepo_resourcePath" -name vijay  
+            - New-Item -Path 'C:\Users\Administrator\Downloads\hello.txt' -ItemType File 
+            - Set-Content -Path "C:\Users\Administrator\Downloads\hello.txt" -Value "My Value" -Force  
+            - add_pipeline_files -sources "C:\Users\Administrator\Downloads\hello.txt" -name vijay             
+                      
+      - name: functions2
+        type: PowerShell
+        configuration:
+          nodePool: pipelines_w19             
+          inputSteps:
+            - name: functions
+        execution:
+          onExecute:
+            - Push-Location $res_vijayRepo_resourcePath
+            - restore_run_files -name repo_pipe -path "C:\Users\Administrator\Downloads\hello.txt"   
+            - get-childitem $res_vijayRepo_resourcePath  
+            - get-content C:\Users\Administrator\Downloads\hello.txt            
+#             - get-childitem $res_vijayRepo_resourcePath    
+#             - restore_run_files -name vijayRepo -path $step_tmp_dir   
+#             - get-childitem $res_vijayRepo_resourcePath         
+            
+      - name: functions3
+        type: PowerShell
+        configuration:   
+          nodePool: pipelines_w19         
+          inputSteps:
+            - name: functions2
+        execution:
+          onExecute:
+            - Push-Location $res_vijayRepo_resourcePath
+            - get-childitem $res_vijayRepo_resourcePath  
+            - restore_pipeline_files -name vijay -path "C:\Users\Administrator\Downloads\hello.txt"
+            - get-childitem $res_vijayRepo_resourcePath 
+            - get-content C:\Users\Administrator\Downloads\hello.txt            
+#             - echo $pipelineVariable                       
+#             - restore_pipeline_files -name vijay -path $step_tmp_dir
+#             - get-childitem $step_tmp_dir   
