@@ -12,36 +12,28 @@ pipelines:
       - name: functions
         type: PowerShell
         configuration:
-          nodePool: win_2019     
+          nodePool: pipelines_w19     
           integrations:
-            - name: vijay
-            - name: slack          
+            - name: vijay        
           inputResources:
             - name: vijayRepo
 
 
         execution:
           onExecute:
-            - find_resource_variable myRepo $res_vijayRepo_resourcePath
-            - send_notification slack
-#             - replicate_resource myTestImage myStageImage
-            - $testvariable
-            - $vijay
-            #pipelines
             - get-childitem $res_vijayRepo_resourcePath
             - Push-Location $res_vijayRepo_resourcePath
 #             - get-childitem $step_tmp_dir  
 #             - add_run_files -sources "$res_vijayRepo_resourcePath" -name vijayRepo   
 #             - add_pipeline_files -sources "$res_vijayRepo_resourcePath" -name vijay  
             - New-Item -Path 'C:\Users\Administrator\Downloads\hello.txt' -ItemType File 
-            - Set-Content -Path "C:\Users\Administrator\Downloads\hello.txt" -Value "My Value" -Force 
-            - add_run_files -sources "C:\Users\Administrator\Downloads\hello.txt" -name repo_pipe   
+            - Set-Content -Path "C:\Users\Administrator\Downloads\hello.txt" -Value "My Value" -Force  
             - add_pipeline_files -sources "C:\Users\Administrator\Downloads\hello.txt" -name vijay             
                       
       - name: functions2
         type: PowerShell
         configuration:
-          nodePool: win_2019             
+          nodePool: pipelines_w19             
           inputSteps:
             - name: functions
         execution:
@@ -52,14 +44,12 @@ pipelines:
             - get-content C:\Users\Administrator\Downloads\hello.txt            
 #             - get-childitem $res_vijayRepo_resourcePath    
 #             - restore_run_files -name vijayRepo -path $step_tmp_dir   
-#             - get-childitem $res_vijayRepo_resourcePath    
-            - echo $pipelineVariable                        
-            - echo $runVariable       
+#             - get-childitem $res_vijayRepo_resourcePath         
             
       - name: functions3
         type: PowerShell
         configuration:   
-          nodePool: win_2019         
+          nodePool: pipelines_w19         
           inputSteps:
             - name: functions2
         execution:
@@ -72,7 +62,6 @@ pipelines:
 #             - echo $pipelineVariable                       
 #             - restore_pipeline_files -name vijay -path $step_tmp_dir
 #             - get-childitem $step_tmp_dir   
-            - echo $runVariable            
             
 
             
